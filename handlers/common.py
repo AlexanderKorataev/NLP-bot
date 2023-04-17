@@ -2,6 +2,8 @@
 from aiogram import types
 from aiogram.dispatcher import Dispatcher
 
+from plugins.reaction import reaction
+
 
 class CommonHandlers:
     """Сommon handlers"""
@@ -30,7 +32,7 @@ class CommonHandlers:
             'We\'ll be there soon🆘'
             )
 
-    async def unknown(message: types.Message) -> None:
+    async def neural_network_reaction(message: types.Message) -> None:
         """
         Handler for unknown commands or messages
 
@@ -39,7 +41,7 @@ class CommonHandlers:
         """
 
         await message.answer(
-            'I do not know what to do with this 😬 I will just remind you that there is a command /help'
+            reaction(message.text)
             )
 
 def register_client_handlers(dp: Dispatcher) -> None:
@@ -52,4 +54,4 @@ def register_client_handlers(dp: Dispatcher) -> None:
     dp.register_message_handler(CommonHandlers.start_command, commands=['start'])
     dp.register_message_handler(CommonHandlers.help_command, commands=['help'])
 
-    dp.register_message_handler(CommonHandlers.unknown)
+    dp.register_message_handler(CommonHandlers.neural_network_reaction)
